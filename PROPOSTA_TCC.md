@@ -2,7 +2,7 @@
 
 ## Copiloto de SOC 4.0 para triagem e resposta a incidentes: um estudo comparativo entre SLM local e LLM em nuvem (AWS), com RAG sobre MITRE ATT&CK, agentes com Guardrails e práticas de AgentOps
 
-> **Programa:** Pós-graduação PUC-Rio / ICA — entrega no padrão [ICA-cursos/PoCs](https://github.com/ICA-cursos/PoCs)
+> **Programa:** Pós-graduação PUC-Rio / ICA — IA Generativa & LLMs (2025.2) — entrega no padrão [ICA-cursos/PoCs](https://github.com/ICA-cursos/PoCs)
 > **Autor:** Leonardo Nunes
 > **Linha:** SOC 4.0 / Automação de Segurança orientada por IA
 > **Nota:** o currículo da pós de Cibersegurança da DSA foi usado como **referência temática**

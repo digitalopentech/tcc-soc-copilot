@@ -5,7 +5,7 @@
 
 ---
 
-Trabalho apresentado ao curso [BI MASTER](https://ica.puc-rio.ai/bi-master) como pré-requisito para conclusão de curso e obtenção de crédito na disciplina "Projetos de Sistemas Inteligentes de Apoio à Decisão".
+Trabalho apresentado ao curso [Inteligência Artificial Generativa & Large Language Models](https://ica.ele.puc-rio.br/cursos/ia-generativa-large-language-models/) (2025.2) como pré-requisito para conclusão de curso e obtenção de crédito na disciplina "Projeto LLM".
 
 - [Link para o código](https://github.com/digitalopentech/tcc-soc-copilot).
 
@@ -116,4 +116,4 @@ Matrícula: *a preencher*
 
 Pontifícia Universidade Católica do Rio de Janeiro
 
-Curso de Pós Graduação *Business Intelligence Master*
+Curso de Pós Graduação *Inteligência Artificial Generativa & Large Language Models*
