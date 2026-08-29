@@ -1,0 +1,40 @@
+{
+  "dataset": "CIC-IDS2017 WebAttacks (dhoogla/cicids2017)",
+  "n": 141,
+  "nota": "versao no-metadata: sem payload nem IP; severidade derivada do fluxo",
+  "experimentos": [
+    {
+      "configuracao": "Regras+RAG (CIC-IDS2017 Web)",
+      "acuracia": 0.0,
+      "f1_macro": 0.0,
+      "custo_erro": 305,
+      "acerto_tecnica": 0.0,
+      "matriz_confusao": [
+        [
+          0,
+          37,
+          3,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          36,
+          0,
+          4
+        ],
+        [
+          0,
+          61,
+          0,
+          0
+        ]
+      ]
+    }
+  ]
+}

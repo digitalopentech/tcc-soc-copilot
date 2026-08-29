@@ -1,0 +1,21 @@
+# Núcleo — suficiente para reproduzir todos os experimentos offline
+pydantic>=2.0
+pandas
+scikit-learn
+numpy
+
+# CLI e apresentação
+typer
+rich
+
+# Notebooks
+jupyterlab
+matplotlib
+seaborn
+
+# Testes
+pytest
+
+# Opcional — apenas para o modo LLM e a ablação com embeddings
+# ollama              # modelo local
+# sentence-transformers

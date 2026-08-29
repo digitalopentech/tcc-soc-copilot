@@ -1,0 +1,9 @@
+[project]
+name = "soc-copilot"
+version = "0.1.0"
+description = "Copiloto de triagem de alertas de SOC com RAG sobre MITRE ATT&CK"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
