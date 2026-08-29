@@ -36,10 +36,4 @@ RUN useradd --create-home --uid 1000 analista && chown -R analista:analista /app
 USER analista
 
 # Padrão: reproduz a ablação determinística e imprime as métricas
-CMD ["python", "-c", "\
-from pathlib import Path; \
-from soc_copilot.evaluate import executar_ablacao, formatar_matriz; \
-res = executar_ablacao(Path('data/golden_set.csv')); \
-print('=== Ablacao deterministica (golden set) ==='); \
-[print(' ', m.linha_resumo()) for m in res]; \
-print(); print(formatar_matriz(res[-1]))"]
+CMD ["python", "-m", "soc_copilot.cli"]

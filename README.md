@@ -75,21 +75,26 @@ docker run --rm soc-copilot            # ablação determinística
 docker run --rm soc-copilot pytest -q  # suíte de testes
 ```
 
-Localmente:
+Localmente (requer Python 3.10+):
 
 ```bash
+# 1. Crie o ambiente e instale as dependências
+python3 -m venv .venv
+source .venv/bin/activate          # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 
-# Avaliação determinística (offline, sem modelo de linguagem)
-PYTHONPATH=src python -c "from pathlib import Path; from soc_copilot.evaluate import executar_ablacao; \
-[print(m.linha_resumo()) for m in executar_ablacao(Path('data/golden_set.csv'))]"
+# 2. Avaliação determinística (offline, sem modelo de linguagem)
+PYTHONPATH=src python -m soc_copilot.cli
 
-# Avaliação incluindo o modelo de linguagem (requer Ollama com qwen3:4b)
-PYTHONPATH=src python -c "from pathlib import Path; from soc_copilot.evaluate import executar_ablacao; \
-from soc_copilot.llm import conector_ollama; \
-[print(m.linha_resumo()) for m in executar_ablacao(Path('data/golden_set.csv'), chamar_modelo=conector_ollama('qwen3:4b'))]"
+# 3. Suíte de testes
+PYTHONPATH=src pytest tests/ -q
+```
 
-pytest tests/ -v
+Para incluir o braço com modelo de linguagem é necessário [Ollama](https://ollama.com)
+em execução com o modelo `qwen3:4b` (`ollama pull qwen3:4b`):
+
+```bash
+PYTHONPATH=src python -m soc_copilot.cli --llm
 ```
 
 ## Organização do repositório
