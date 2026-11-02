@@ -1,7 +1,7 @@
 # Copiloto de SOC 4.0: triagem de alertas de segurança com RAG sobre MITRE ATT&CK
 
-#### Aluno: [Leonardo Nunes](https://github.com/digitalopentech).
-#### Orientador(a): *a definir*.
+#### Aluno: [Leonardo Nunes Moreira do Valle](https://github.com/digitalopentech).
+#### Orientador: [Leonardo Alfredo Forero Mendoza](https://github.com/leofome8).
 
 ---
 
@@ -215,8 +215,8 @@ PYTHONPATH=src python -m soc_copilot.cli --llm --demo   # demonstração em modo
 
 ---
 
-Matrícula: *a preencher*
+Matrícula: 252.100.281
 
 Pontifícia Universidade Católica do Rio de Janeiro
 
-Curso de Pós Graduação *Inteligência Artificial Generativa & Large Language Models*
+Curso de Pós Graduação *Inteligência Artificial Generativa & Large Language Models* / 2025.2

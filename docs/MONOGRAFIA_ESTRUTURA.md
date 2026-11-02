@@ -80,7 +80,7 @@ sobre posts de fornecedor (estes entram como "prática de indústria", devidamen
 - [x] README no template, sem comentários HTML
 - [x] Resumo (PT) e Abstract (EN)
 - [x] Código documentado e reprodutível
-- [ ] Nome do orientador(a) e matrícula preenchidos
+- [x] Nome do orientador e matrícula preenchidos
 - [ ] Link do repositório final ajustado (as PoCs listadas ficam na organização
       `secretaria-ICA`; confirmar o procedimento com a secretaria)
 - [ ] Monografia (linha opcional no template; removida do README até o texto existir —
