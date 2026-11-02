@@ -60,8 +60,7 @@
           5,
           47
         ]
-      ],
-      "catalogo_tecnicas": 27
+      ]
     },
     {
       "configuracao": "2. Regras + RAG",
@@ -120,8 +119,7 @@
           5,
           47
         ]
-      ],
-      "catalogo_tecnicas": 27
+      ]
     },
     {
       "configuracao": "3. LLM + RAG",
@@ -180,8 +178,7 @@
           "f1": 0.8302,
           "suporte": 60
         }
-      },
-      "catalogo_tecnicas": 27
+      }
     },
     {
       "configuracao": "4. Hibrido (regras + LLM redige)",
@@ -240,8 +237,7 @@
           "f1": 0.8704,
           "suporte": 60
         }
-      },
-      "catalogo_tecnicas": 27
+      }
     }
   ]
 }

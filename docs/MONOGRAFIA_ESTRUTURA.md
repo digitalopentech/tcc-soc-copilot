@@ -85,7 +85,6 @@ sobre posts de fornecedor (estes entram como "prática de indústria", devidamen
       `secretaria-ICA`; confirmar o procedimento com a secretaria)
 - [ ] Monografia (linha opcional no template; removida do README até o texto existir —
       este arquivo é a estrutura planejada)
-- [ ] Reexecutar a ablação com `--llm` após a ampliação do catálogo (braço 3 do
-      golden set ainda reflete o catálogo de 10 técnicas)
-- [ ] Versionar `resultados/benchmark_v1.json` (hoje fora do controle de versão)
+- [x] Reexecutar a ablação com `--llm` após a ampliação do catálogo
+- [x] Versionar `resultados/benchmark_v1.json`
 - [x] Adicionar arquivo `LICENSE` (MIT, como declara o `Dockerfile`)

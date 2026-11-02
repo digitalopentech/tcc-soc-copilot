@@ -26,7 +26,7 @@ Este trabalho projeta, implementa e avalia um **copiloto de triagem de alertas**
 
 A contribuição central não é construir mais um copiloto — produtos comerciais já existem —, e sim **medir de forma independente e reproduzível** o que cada componente agrega. O sistema foi avaliado em dois conjuntos construídos para o trabalho — um *golden set* de desenvolvimento com 38 alertas e um **benchmark aberto de 240 alertas** cobrindo seis fontes de telemetria (IDS, WAF, EDR, gateway de e-mail, nuvem e identidade), com 20% de casos deliberadamente ambíguos — por meio de experimentos de ablação que comparam três configurações: (i) um classificador determinístico baseado em regras explícitas sobre features extraídas do alerta; (ii) o mesmo pipeline acrescido de recuperação de contexto ATT&CK; e (iii) classificação por um modelo de linguagem (`qwen3:4b`, executado localmente).
 
-Os resultados contrariam a expectativa inicial e constituem a principal contribuição empírica do trabalho. No golden set, o baseline determinístico alcançou **F1-macro de 0,968 com custo de erro zero**, enquanto a configuração com modelo de linguagem obteve **F1-macro de 0,315**, classificando incorretamente como falso positivo 4 dos 12 alertas de prioridade máxima — o modo de falha mais grave em operações de segurança. No benchmark de 240 alertas o quadro se mantém: **F1-macro de 0,707 para o baseline contra 0,333 para o modelo**, que descartou como falso positivo 16 dos 60 alertas de prioridade máxima (o baseline, 8). A recuperação de contexto, por sua vez, demonstrou valor em uma dimensão distinta da priorização: elevou o acerto na identificação da técnica ATT&CK de 0,680 para 0,800 no golden set e de 0,106 para 0,381 no benchmark.
+Os resultados contrariam a expectativa inicial e constituem a principal contribuição empírica do trabalho. No golden set, o baseline determinístico alcançou **F1-macro de 0,968 com custo de erro zero**, enquanto a configuração com modelo de linguagem obteve **F1-macro de 0,349**, classificando incorretamente como falso positivo 2 dos 12 alertas de prioridade máxima — o modo de falha mais grave em operações de segurança. No benchmark de 240 alertas o quadro se mantém: **F1-macro de 0,707 para o baseline contra 0,333 para o modelo**, que descartou como falso positivo 16 dos 60 alertas de prioridade máxima (o baseline, 8). A recuperação de contexto, por sua vez, demonstrou valor em uma dimensão distinta da priorização: elevou o acerto na identificação da técnica ATT&CK de 0,680 para 0,800 no golden set e de 0,106 para 0,381 no benchmark.
 
 Conclui-se que, para triagem de alertas estruturados, a arquitetura adequada é **híbrida**: o componente determinístico decide a prioridade, enquanto o modelo de linguagem enriquece, contextualiza e redige a justificativa destinada ao analista. A validação externa em UNSW-NB15 e CIC-IDS2017 revelou ainda que os benchmarks públicos de detecção de intrusão não contêm o dado textual que um modelo de linguagem precisa ler — lacuna que motivou a construção do benchmark aberto aqui proposto. Todo o material é reprodutível sem GPU ou serviços de nuvem.
 
@@ -38,7 +38,7 @@ This work designs, implements and evaluates an **alert triage copilot** that tak
 
 The core contribution is not building yet another copilot — commercial products already exist — but **independently and reproducibly measuring** what each component adds. The system was evaluated on two datasets built for this work — a 38-alert development golden set and an **open benchmark of 240 alerts** spanning six telemetry sources (IDS, WAF, EDR, e-mail gateway, cloud and identity), 20% of them deliberately ambiguous — through ablation experiments comparing three configurations: (i) a deterministic rule-based classifier over features extracted from the alert; (ii) the same pipeline augmented with ATT&CK context retrieval; and (iii) classification by a language model (`qwen3:4b`, running locally).
 
-The results contradict the initial expectation and constitute the main empirical contribution of this work. On the golden set, the deterministic baseline achieved a **macro-F1 of 0.968 with zero error cost**, whereas the language-model configuration reached a **macro-F1 of 0.315**, misclassifying 4 out of 12 highest-priority alerts as false positives — the most severe failure mode in security operations. On the 240-alert benchmark the picture holds: **macro-F1 of 0.707 for the baseline against 0.333 for the model**, which dismissed 16 of the 60 highest-priority alerts as false positives (the baseline, 8). Context retrieval, in turn, proved valuable along a dimension distinct from prioritization: it raised ATT&CK technique identification accuracy from 0.680 to 0.800 on the golden set and from 0.106 to 0.381 on the benchmark.
+The results contradict the initial expectation and constitute the main empirical contribution of this work. On the golden set, the deterministic baseline achieved a **macro-F1 of 0.968 with zero error cost**, whereas the language-model configuration reached a **macro-F1 of 0.349**, misclassifying 2 out of 12 highest-priority alerts as false positives — the most severe failure mode in security operations. On the 240-alert benchmark the picture holds: **macro-F1 of 0.707 for the baseline against 0.333 for the model**, which dismissed 16 of the 60 highest-priority alerts as false positives (the baseline, 8). Context retrieval, in turn, proved valuable along a dimension distinct from prioritization: it raised ATT&CK technique identification accuracy from 0.680 to 0.800 on the golden set and from 0.106 to 0.381 on the benchmark.
 
 We conclude that, for structured alert triage, the appropriate architecture is **hybrid**: the deterministic component decides priority, while the language model enriches, contextualizes and drafts the justification for the analyst. External validation on UNSW-NB15 and CIC-IDS2017 further revealed that public intrusion-detection benchmarks do not carry the textual data a language model needs to read — a gap that motivated the open benchmark proposed here. All material is reproducible without GPU or cloud services.
 
@@ -103,12 +103,8 @@ redação da justificativa.
 |---|---|---|---|---|
 | Baseline (regras determinísticas) | 0,974 | 0,968 | **0** | 0,680 |
 | Regras + RAG | 0,974 | 0,968 | **0** | **0,800** |
-| LLM (`qwen3:4b`) + RAG | 0,447 | 0,315 | 70 | 0,840 ¹ |
+| LLM (`qwen3:4b`) + RAG | 0,500 | 0,349 | 50 | 0,600 |
 | **Híbrido (regras decidem, LLM redige)** | **0,974** | **0,968** | **0** | **0,800** |
-
-¹ Braço medido com o catálogo original de 10 técnicas ATT&CK. O catálogo foi ampliado
-para 27 técnicas na construção do benchmark e este braço aguarda reexecução (`--llm`);
-os demais foram remedidos com o catálogo atual.
 
 ### Ablação no benchmark aberto (240 alertas, 6 fontes, 20% ambíguos)
 
@@ -122,7 +118,9 @@ os demais foram remedidos com o catálogo atual.
 O benchmark discrimina onde o golden set saturava: o baseline deixa de ser perfeito
 (8 dos 60 alertas ALTA descartados como falso positivo), mas o modelo de linguagem erra
 o dobro (16 dos 60) e volta a colapsar o espaço de decisão em duas classes. Na
-identificação da técnica, porém, o modelo supera a recuperação esparsa.
+identificação da técnica, porém, o modelo supera a recuperação esparsa neste conjunto
+(0,469 contra 0,381); no golden set, menor e com payloads mais diretos, ocorre o inverso
+(0,600 contra 0,800).
 
 ### Validação externa em datasets públicos
 
@@ -178,8 +176,8 @@ docker run --rm soc-copilot pytest -q                          # testes
 ```
 
 Os braços com modelo de linguagem exigem [Ollama](https://ollama.com) em execução com o
-modelo `qwen3:4b` (`ollama pull qwen3:4b`). Levam cerca de 17 s por alerta no ambiente
-dos experimentos (Apple M3, sem GPU dedicada). A opção `--saida` grava as métricas no
+modelo `qwen3:4b` (`ollama pull qwen3:4b`). Levam de 17 s a 40 s por chamada ao modelo,
+conforme o hardware (medições em Apple M3). A opção `--saida` grava as métricas no
 formato JSON usado em `resultados/`:
 
 ```bash

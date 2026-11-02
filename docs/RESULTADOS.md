@@ -12,11 +12,11 @@
 |---|---|
 | Conjunto de avaliação | 38 alertas rotulados manualmente (`data/golden_set.csv`) |
 | Distribuição | ALTA 12 · MÉDIA 10 · BAIXA 7 · FALSO_POSITIVO 9 |
-| Base de conhecimento | 27 técnicas MITRE ATT&CK (`data/attack_techniques.json`); os braços com LLM foram medidos com o catálogo original de 10 técnicas — ver nota em §2 |
+| Base de conhecimento | 27 técnicas MITRE ATT&CK (`data/attack_techniques.json`) |
 | Recuperador | TF-IDF + similaridade de cosseno, `k=3` |
 | Modelo de linguagem | `qwen3:4b` via Ollama, `temperature=0`, `format=json` |
 | Ambiente | Apple M3, 16 GB RAM, execução local sem GPU dedicada |
-| Tempo total da ablação | 656 s (≈ 17 s por alerta no braço com LLM) |
+| Tempo total da ablação | 656 s no run original (≈ 17 s por chamada ao modelo); ≈ 48 min na reexecução em CPU (≈ 38 s por chamada) |
 
 O desenho é uma **ablação incremental**: cada configuração acrescenta um componente à
 anterior, de modo que a diferença observada seja atribuível a esse componente.
@@ -27,14 +27,14 @@ anterior, de modo que a diferença observada seja atribuível a esse componente.
 |---|---|---|---|---|---|
 | 1 | Baseline (regras determinísticas) | 0,974 | 0,968 | **0** | 0,680 |
 | 2 | Regras + RAG | 0,974 | 0,968 | **0** | **0,800** |
-| 3 | LLM + RAG | 0,447 | 0,315 | **70** | 0,840 ¹ |
+| 3 | LLM + RAG | 0,500 | 0,349 | **50** | 0,600 |
 
-¹ **Nota sobre o catálogo.** A ablação original foi executada com um catálogo de 10
-técnicas ATT&CK. Na construção do benchmark (§10) o catálogo foi ampliado para 27
-técnicas, e os braços determinísticos (1 e 2) foram remedidos com ele: o acerto de
-técnica do braço 2 caiu de 0,880 para 0,800, sem alteração nas métricas de prioridade.
-O braço 3 depende do modelo de linguagem e ainda não foi reexecutado com o catálogo
-ampliado; seus números referem-se ao catálogo de 10 técnicas.
+**Nota sobre o catálogo.** A ablação original foi executada com um catálogo de 10
+técnicas ATT&CK e registrava acerto de técnica de 0,880 no braço 2 e 0,840 no braço 3
+(este com F1-macro 0,315 e custo de erro 70). Na construção do benchmark (§10) o catálogo
+foi ampliado para 27 técnicas e todos os braços foram reexecutados com ele; os números
+acima são os da reexecução. As métricas de prioridade dos braços determinísticos não
+mudaram.
 
 **Custo de erro** é uma métrica ponderada que penaliza o erro operacionalmente caro:
 subestimar a gravidade de um alerta. Pesos: ALTA→FALSO_POSITIVO = 10; ALTA→BAIXA = 5;
@@ -56,10 +56,10 @@ gera trabalho adicional ao analista, sem risco de incidente não detectado.
 
 | Classe | Precisão | Recall | F1 | Suporte |
 |---|---|---|---|---|
-| FALSO_POSITIVO | 0,300 | 1,000 | 0,462 | 9 |
+| FALSO_POSITIVO | 0,321 | 1,000 | 0,486 | 9 |
 | BAIXA | 0,000 | 0,000 | 0,000 | 7 |
 | MÉDIA | 0,000 | 0,000 | 0,000 | 10 |
-| ALTA | 1,000 | 0,667 | 0,800 | 12 |
+| ALTA | 1,000 | 0,833 | 0,909 | 12 |
 
 ## 4. Matrizes de confusão
 
@@ -82,7 +82,7 @@ real ALTA          0       0       0      12
 real FALSO_        9       0       0       0
 real BAIXA         7       0       0       0
 real MEDIA        10       0       0       0
-real ALTA          4       0       0       8
+real ALTA          2       0       0      10
 ```
 
 ## 5. Análise
@@ -90,13 +90,13 @@ real ALTA          4       0       0       8
 ### 5.1 O modelo de linguagem colapsou o espaço de decisão
 
 O braço com LLM **não utilizou as classes BAIXA e MÉDIA em nenhuma das 38 decisões**:
-classificou 30 alertas como FALSO_POSITIVO e 8 como ALTA. Esse comportamento binário
+classificou 28 alertas como FALSO_POSITIVO e 10 como ALTA. Esse comportamento binário
 explica simultaneamente o recall perfeito em FALSO_POSITIVO (1,000) e a precisão baixa
-na mesma classe (0,300) — o modelo acerta todos os falsos positivos verdadeiros porque
+na mesma classe (0,321) — o modelo acerta todos os falsos positivos verdadeiros porque
 classifica quase tudo assim.
 
-A consequência crítica: **4 dos 12 alertas de prioridade ALTA foram descartados como
-falso positivo** (exfiltração de dados, beaconing de C2, entre outros). Em operação real,
+A consequência crítica: **2 dos 12 alertas de prioridade ALTA foram descartados como
+falso positivo** (4 dos 12 na ablação original com o catálogo menor). Em operação real,
 esses são exatamente os incidentes que passam despercebidos — o modo de falha mais caro
 de um SOC.
 
@@ -147,7 +147,7 @@ Declaradas explicitamente, por honestidade metodológica:
 
 1. Para triagem de alertas estruturados, **regras determinísticas sobre features bem
    escolhidas superam um modelo de linguagem pequeno**, a custo computacional
-   desprezível e com latência de milissegundos contra ~17 s por alerta.
+   desprezível e com latência de milissegundos contra dezenas de segundos por alerta.
 2. **O modelo pequeno é sistematicamente otimista**: subestima gravidade, o que é o
    viés mais perigoso possível neste domínio.
 3. **A recuperação de contexto (RAG) tem valor comprovado**, mas em uma dimensão
@@ -347,11 +347,11 @@ A ablação completa, com o quarto braço implementando a arquitetura recomendad
 |---|---|---|---|---|---|
 | 1 | Baseline (regras) | 0,974 | 0,968 | 0 | 0,680 |
 | 2 | Regras + RAG | 0,974 | 0,968 | 0 | 0,800 |
-| 3 | LLM + RAG | 0,447 | 0,315 | 70 | 0,840 ¹ |
+| 3 | LLM + RAG | 0,500 | 0,349 | 50 | 0,600 |
 | 4 | **Híbrido (regras decidem, LLM redige)** | **0,974** | **0,968** | **0** | **0,800** |
 
-¹ Medido com o catálogo de 10 técnicas (ver nota em §2). No modo híbrido, prioridade e
-técnica vêm do braço 2 por construção; o modelo só redige a justificativa.
+No modo híbrido, prioridade e técnica vêm do braço 2 por construção; o modelo só redige
+a justificativa.
 
 O modo híbrido **preserva integralmente a qualidade da decisão determinística** —
 métricas idênticas às do braço 2 — enquanto substitui a justificativa gerada por
@@ -469,7 +469,9 @@ real ALTA         16       0       0      44
 
 3. **Na identificação da técnica, o modelo supera a recuperação esparsa.** O acerto de
    técnica do braço LLM (0,469) é superior ao de Regras + RAG (0,381), que por sua vez
-   supera em muito o baseline sem recuperação (0,106). Com 27 técnicas e seis fontes
+   supera em muito o baseline sem recuperação (0,106). No golden set, menor e com
+   payloads mais diretos, ocorre o inverso (0,600 contra 0,800): ali a correspondência
+   lexical basta. Com 27 técnicas e seis fontes
    heterogêneas, a correspondência lexical do TF-IDF perde para o raciocínio semântico
    do modelo. Isso reforça a divisão de trabalho da arquitetura híbrida — e sugere um
    refinamento: no modo híbrido atual a técnica vem do braço 2; delegá-la ao modelo,

@@ -60,8 +60,7 @@
           0,
           12
         ]
-      ],
-      "catalogo_tecnicas": 27
+      ]
     },
     {
       "configuracao": "2. Regras + RAG",
@@ -120,20 +119,19 @@
           0,
           12
         ]
-      ],
-      "catalogo_tecnicas": 27
+      ]
     },
     {
       "configuracao": "3. LLM + RAG",
-      "acuracia": 0.4474,
-      "f1_macro": 0.3154,
-      "custo_erro": 70,
-      "acerto_tecnica": 0.84,
+      "acuracia": 0.5,
+      "f1_macro": 0.3489,
+      "custo_erro": 50,
+      "acerto_tecnica": 0.6,
       "por_classe": {
         "FALSO_POSITIVO": {
-          "precisao": 0.3,
+          "precisao": 0.3214,
           "recall": 1.0,
-          "f1": 0.4615,
+          "f1": 0.4865,
           "suporte": 9
         },
         "BAIXA": {
@@ -150,8 +148,8 @@
         },
         "ALTA": {
           "precisao": 1.0,
-          "recall": 0.6667,
-          "f1": 0.8,
+          "recall": 0.8333,
+          "f1": 0.9091,
           "suporte": 12
         }
       },
@@ -175,20 +173,19 @@
           0
         ],
         [
-          4,
+          2,
           0,
           0,
-          8
+          10
         ]
-      ],
-      "catalogo_tecnicas": 10
+      ]
     },
     {
       "configuracao": "4. Hibrido (regras + LLM redige)",
       "acuracia": 0.9737,
       "f1_macro": 0.9676,
       "custo_erro": 0,
-      "acerto_tecnica": 0.88,
+      "acerto_tecnica": 0.8,
       "por_classe": {
         "FALSO_POSITIVO": {
           "precisao": 0.9,
@@ -240,9 +237,7 @@
           0,
           12
         ]
-      ],
-      "catalogo_tecnicas": 10
+      ]
     }
-  ],
-  "nota": "Braços 1 e 2 remedidos com o catálogo de 27 técnicas; braços 3 e 4 medidos com o catálogo original de 10 técnicas e pendentes de reexecução com --llm."
+  ]
 }
