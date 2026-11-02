@@ -1,0 +1,247 @@
+{
+  "dataset": "benchmark_v1.csv",
+  "modelo_llm": "qwen3:4b",
+  "catalogo_tecnicas": 27,
+  "experimentos": [
+    {
+      "configuracao": "1. Baseline (regras)",
+      "acuracia": 0.7333,
+      "f1_macro": 0.7067,
+      "custo_erro": 89,
+      "acerto_tecnica": 0.1062,
+      "por_classe": {
+        "FALSO_POSITIVO": {
+          "precisao": 0.5667,
+          "recall": 0.2833,
+          "f1": 0.3778,
+          "suporte": 60
+        },
+        "BAIXA": {
+          "precisao": 0.5349,
+          "recall": 0.9583,
+          "f1": 0.6866,
+          "suporte": 48
+        },
+        "MEDIA": {
+          "precisao": 0.8684,
+          "recall": 0.9167,
+          "f1": 0.8919,
+          "suporte": 72
+        },
+        "ALTA": {
+          "precisao": 0.9792,
+          "recall": 0.7833,
+          "f1": 0.8704,
+          "suporte": 60
+        }
+      },
+      "matriz_confusao": [
+        [
+          17,
+          37,
+          5,
+          1
+        ],
+        [
+          2,
+          46,
+          0,
+          0
+        ],
+        [
+          3,
+          3,
+          66,
+          0
+        ],
+        [
+          8,
+          0,
+          5,
+          47
+        ]
+      ],
+      "catalogo_tecnicas": 27
+    },
+    {
+      "configuracao": "2. Regras + RAG",
+      "acuracia": 0.7333,
+      "f1_macro": 0.7067,
+      "custo_erro": 89,
+      "acerto_tecnica": 0.3812,
+      "por_classe": {
+        "FALSO_POSITIVO": {
+          "precisao": 0.5667,
+          "recall": 0.2833,
+          "f1": 0.3778,
+          "suporte": 60
+        },
+        "BAIXA": {
+          "precisao": 0.5349,
+          "recall": 0.9583,
+          "f1": 0.6866,
+          "suporte": 48
+        },
+        "MEDIA": {
+          "precisao": 0.8684,
+          "recall": 0.9167,
+          "f1": 0.8919,
+          "suporte": 72
+        },
+        "ALTA": {
+          "precisao": 0.9792,
+          "recall": 0.7833,
+          "f1": 0.8704,
+          "suporte": 60
+        }
+      },
+      "matriz_confusao": [
+        [
+          17,
+          37,
+          5,
+          1
+        ],
+        [
+          2,
+          46,
+          0,
+          0
+        ],
+        [
+          3,
+          3,
+          66,
+          0
+        ],
+        [
+          8,
+          0,
+          5,
+          47
+        ]
+      ],
+      "catalogo_tecnicas": 27
+    },
+    {
+      "configuracao": "3. LLM + RAG",
+      "acuracia": 0.4375,
+      "f1_macro": 0.333,
+      "custo_erro": 367,
+      "acerto_tecnica": 0.4688,
+      "matriz_confusao": [
+        [
+          60,
+          0,
+          0,
+          0
+        ],
+        [
+          48,
+          0,
+          0,
+          0
+        ],
+        [
+          69,
+          0,
+          1,
+          2
+        ],
+        [
+          16,
+          0,
+          0,
+          44
+        ]
+      ],
+      "por_classe": {
+        "FALSO_POSITIVO": {
+          "precisao": 0.3109,
+          "recall": 1.0,
+          "f1": 0.4743,
+          "suporte": 60
+        },
+        "BAIXA": {
+          "precisao": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "suporte": 48
+        },
+        "MEDIA": {
+          "precisao": 1.0,
+          "recall": 0.0139,
+          "f1": 0.0274,
+          "suporte": 72
+        },
+        "ALTA": {
+          "precisao": 0.9565,
+          "recall": 0.7333,
+          "f1": 0.8302,
+          "suporte": 60
+        }
+      },
+      "catalogo_tecnicas": 27
+    },
+    {
+      "configuracao": "4. Hibrido (regras + LLM redige)",
+      "acuracia": 0.7333,
+      "f1_macro": 0.7067,
+      "custo_erro": 89,
+      "acerto_tecnica": 0.3812,
+      "matriz_confusao": [
+        [
+          17,
+          37,
+          5,
+          1
+        ],
+        [
+          2,
+          46,
+          0,
+          0
+        ],
+        [
+          3,
+          3,
+          66,
+          0
+        ],
+        [
+          8,
+          0,
+          5,
+          47
+        ]
+      ],
+      "por_classe": {
+        "FALSO_POSITIVO": {
+          "precisao": 0.5667,
+          "recall": 0.2833,
+          "f1": 0.3778,
+          "suporte": 60
+        },
+        "BAIXA": {
+          "precisao": 0.5349,
+          "recall": 0.9583,
+          "f1": 0.6866,
+          "suporte": 48
+        },
+        "MEDIA": {
+          "precisao": 0.8684,
+          "recall": 0.9167,
+          "f1": 0.8919,
+          "suporte": 72
+        },
+        "ALTA": {
+          "precisao": 0.9792,
+          "recall": 0.7833,
+          "f1": 0.8704,
+          "suporte": 60
+        }
+      },
+      "catalogo_tecnicas": 27
+    }
+  ]
+}

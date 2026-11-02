@@ -1,5 +1,7 @@
 {
+  "dataset": "golden_set.csv",
   "modelo_llm": "qwen3:4b",
+  "catalogo_tecnicas": 27,
   "experimentos": [
     {
       "configuracao": "1. Baseline (regras)",
@@ -58,14 +60,15 @@
           0,
           12
         ]
-      ]
+      ],
+      "catalogo_tecnicas": 27
     },
     {
       "configuracao": "2. Regras + RAG",
       "acuracia": 0.9737,
       "f1_macro": 0.9676,
       "custo_erro": 0,
-      "acerto_tecnica": 0.88,
+      "acerto_tecnica": 0.8,
       "por_classe": {
         "FALSO_POSITIVO": {
           "precisao": 0.9,
@@ -117,7 +120,8 @@
           0,
           12
         ]
-      ]
+      ],
+      "catalogo_tecnicas": 27
     },
     {
       "configuracao": "3. LLM + RAG",
@@ -176,7 +180,8 @@
           0,
           8
         ]
-      ]
+      ],
+      "catalogo_tecnicas": 10
     },
     {
       "configuracao": "4. Hibrido (regras + LLM redige)",
@@ -235,7 +240,9 @@
           0,
           12
         ]
-      ]
+      ],
+      "catalogo_tecnicas": 10
     }
-  ]
+  ],
+  "nota": "Braços 1 e 2 remedidos com o catálogo de 27 técnicas; braços 3 e 4 medidos com o catálogo original de 10 técnicas e pendentes de reexecução com --llm."
 }

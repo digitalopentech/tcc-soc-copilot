@@ -4,18 +4,13 @@ pandas
 scikit-learn
 numpy
 
-# CLI e apresentação
-typer
-rich
-
-# Notebooks
-jupyterlab
-matplotlib
-seaborn
-
 # Testes
 pytest
 
 # Opcional — apenas para o modo LLM e a ablação com embeddings
 # ollama              # modelo local
 # sentence-transformers
+
+# Opcional — validação externa em datasets públicos (docs/RESULTADOS.md §8–9)
+# kagglehub           # download de UNSW-NB15 e CIC-IDS2017 (exige credenciais do Kaggle)
+# pyarrow             # leitura dos arquivos .parquet desses datasets

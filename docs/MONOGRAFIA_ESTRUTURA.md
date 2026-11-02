@@ -8,8 +8,11 @@
 - **Problema**: triagem manual não escala; falso positivo domina o volume
 - **Pergunta de pesquisa**: um copiloto com RAG sobre ATT&CK triage alertas com
   qualidade utilizável — e quanto cada componente (enriquecimento, RAG, LLM) contribui?
-- **Objetivos**: geral e específicos → `PROPOSTA_TCC.md` §3
-- **Contribuições**: pipeline reprodutível + metodologia de avaliação com baseline
+- **Objetivos**: geral e específicos → `PROPOSTA_TCC.md` §3, **revisados**: o braço em
+  nuvem (AWS), o *fine-tuning* e a arquitetura multiagente da proposta ficaram como
+  trabalho futuro — declarar a evolução do escopo explicitamente
+- **Contribuições**: pipeline reprodutível + metodologia de avaliação com baseline +
+  benchmark aberto de triagem textual (`docs/TESE.md`)
 - **Organização do texto**
 
 ## 2. Fundamentação Teórica (6-8 pág.)
@@ -38,6 +41,8 @@
 - 4.5 Protocolo experimental: ablação (regras → +RAG → +LLM)
 - 4.6 Métricas: precisão/recall/F1 por classe, matriz de confusão, custo do erro
       assimétrico (classificar ALTA como falso positivo é o erro caro)
+- 4.7 Construção do benchmark_v1: 240 alertas, seis fontes, 20% ambíguos com
+      justificativa de rótulo; gerador reprodutível (`scripts/`) → `docs/TESE.md` §4
 
 ## 5. Implementação (4-5 pág.)
 - 5.1 Modelos de dados e validação de esquema
@@ -55,11 +60,15 @@
 - 6.5 **Discussão crítica**: o que uma métrica alta *não* prova; risco de Goodhart;
       limites de um golden set pequeno e sintético
 - 6.6 Custo, latência e implicações de implantação (local × nuvem)
+- 6.7 Resultados no benchmark_v1 e contraste com o golden set → `docs/RESULTADOS.md` §10
+- 6.8 Validação externa (UNSW-NB15, CIC-IDS2017) e a lacuna de dados textuais nos
+      benchmarks públicos → `docs/RESULTADOS.md` §8–9, `docs/TESE.md`
 
 ## 7. Conclusão (2-3 pág.)
 - Síntese das descobertas e resposta à pergunta de pesquisa
 - **Limitações declaradas** (honestidade metodológica vale nota)
-- Trabalhos futuros: braço AWS, fine-tuning, ingestão ao vivo, multiagente
+- Trabalhos futuros: braço AWS, fine-tuning, ingestão ao vivo, multiagente, técnica
+  delegada ao modelo no modo híbrido (`docs/RESULTADOS.md` §10.5)
 
 ## Referências
 ABNT. Mínimo esperado: 20-30 fontes, com predomínio de artigos revisados por pares
@@ -72,5 +81,11 @@ sobre posts de fornecedor (estes entram como "prática de indústria", devidamen
 - [x] Resumo (PT) e Abstract (EN)
 - [x] Código documentado e reprodutível
 - [ ] Nome do orientador(a) e matrícula preenchidos
-- [ ] Link do repositório final ajustado
-- [ ] Monografia escrita e linkada
+- [ ] Link do repositório final ajustado (as PoCs listadas ficam na organização
+      `secretaria-ICA`; confirmar o procedimento com a secretaria)
+- [ ] Monografia (linha opcional no template; removida do README até o texto existir —
+      este arquivo é a estrutura planejada)
+- [ ] Reexecutar a ablação com `--llm` após a ampliação do catálogo (braço 3 do
+      golden set ainda reflete o catálogo de 10 técnicas)
+- [ ] Versionar `resultados/benchmark_v1.json` (hoje fora do controle de versão)
+- [x] Adicionar arquivo `LICENSE` (MIT, como declara o `Dockerfile`)

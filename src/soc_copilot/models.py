@@ -73,13 +73,13 @@ class Veredito(BaseModel):
     )
     justificativa: str = Field(..., description="Explicação textual do veredito.")
     acao_recomendada: str = Field(..., description="Próxima ação sugerida ao analista.")
-    modo: str = Field(..., description="Origem do veredito: 'regras' ou 'llm'.")
+    modo: str = Field(..., description="Origem do veredito: 'regras', 'llm' ou 'hibrido'.")
 
     @field_validator("modo")
     @classmethod
     def _validar_modo(cls, valor: str) -> str:
         """Restringe o modo aos valores suportados pelo pipeline."""
-        modos_validos = {"regras", "llm"}
+        modos_validos = {"regras", "llm", "hibrido"}
         if valor not in modos_validos:
             raise ValueError(f"modo deve ser um de {modos_validos}, recebido: {valor!r}")
         return valor

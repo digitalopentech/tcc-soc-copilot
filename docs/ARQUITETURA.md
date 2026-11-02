@@ -77,7 +77,10 @@ densos.
 **Justificativa.** Reprodutibilidade tem precedência sobre sofisticação em trabalho
 acadêmico: TF-IDF executa offline, sem download de modelo e sem GPU. Qualquer avaliador
 reproduz os resultados com `pip install -r requirements.txt`. Embeddings densos
-permanecem como ablação futura.
+permanecem como ablação futura. O custo dessa escolha foi medido: ao ampliar o catálogo
+de 10 para 27 técnicas, o acerto de técnica no golden set caiu de 0,880 para 0,800, e no
+benchmark de 240 alertas o modelo de linguagem identifica a técnica melhor que o TF-IDF
+(0,469 contra 0,381) — ver RESULTADOS §5.2 e §10.5.
 
 ### D2 — Baseline determinístico obrigatório
 
@@ -132,7 +135,7 @@ class Veredito(BaseModel):
     tecnica_attack, justificativa, acao_recomendada, modo
 ```
 
-O campo `modo` (`"regras"` ou `"llm"`) torna auditável qual caminho produziu cada
+O campo `modo` (`"regras"`, `"llm"` ou `"hibrido"`) torna auditável qual caminho produziu cada
 decisão — requisito de rastreabilidade em operações de segurança.
 
 ## 6. Reprodutibilidade
@@ -149,7 +152,9 @@ decisão — requisito de rastreabilidade em operações de segurança.
 
 1. **Enriquecimento passivo.** O sistema analisa apenas o que consta no alerta; não
    consulta fontes externas (reputação de IP, CVE). Integração via MCP é evolução natural.
-2. **Base ATT&CK reduzida.** Dez técnicas cobrem o golden set, mas não o catálogo real.
+2. **Base ATT&CK reduzida.** O catálogo versionado tem 27 técnicas (ampliado de 10 na
+   construção do benchmark); cobre o golden set e o benchmark_v1, mas não as centenas de
+   técnicas do ATT&CK Enterprise.
 3. **Sem estado entre execuções.** Cada lote é independente; não há memória de longo
    prazo sobre campanhas persistentes.
 4. **Correlação limitada ao IP de origem.** Não há correlação por usuário, host ou

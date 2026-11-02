@@ -72,6 +72,7 @@ O pipeline desenvolvido foi avaliado em três conjuntos:
 | Conjunto | Natureza | F1-macro | Custo de erro |
 |---|---|---|---|
 | Golden set (deste trabalho) | Sintético, **com payload textual** | 0,968 | 0 |
+| Benchmark v1 (deste trabalho) | Sintético, **com payload textual**, 20% ambíguo | 0,707 | 89 |
 | UNSW-NB15 | Real, features de fluxo | 0,104 | 495 |
 | CIC-IDS2017 (WebAttacks) | Real, features de fluxo | 0,000 | 305 |
 
@@ -105,6 +106,14 @@ Um **benchmark aberto de triagem textual de alertas**, com três componentes:
    validade, evitando que ganhos triviais sejam atribuídos ao modelo.
 3. **Métrica de custo assimétrico**, que pondera o erro operacionalmente caro
    (subestimar gravidade) de forma distinta do erro barato (superestimar).
+
+**O conjunto existe e foi medido.** `data/benchmark_v1.csv` contém 240 alertas de seis
+fontes de telemetria (40 por fonte), 20,4% deles ambíguos e com justificativa de rótulo,
+gerados de forma reprodutível por `scripts/gerar_benchmark.py`. Sobre ele, o baseline
+determinístico obtém F1-macro 0,707 (custo de erro 89) e o modelo de linguagem
+`qwen3:4b`, 0,333 (custo 367); na identificação da técnica ATT&CK o modelo supera a
+recuperação esparsa (0,469 contra 0,381). Análise completa em
+[`RESULTADOS.md`](./RESULTADOS.md) §10.
 
 Ser sintético é condição de possibilidade, não limitação: é precisamente o que permite
 distribuição aberta com payload íntegro. A validade externa é endereçada pela derivação

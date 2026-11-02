@@ -213,3 +213,35 @@ def test_hibrido_informa_prioridade_ja_decidida_no_prompt():
     ClassificadorHibrido(chamar_modelo=espiao).classificar(a, enriquecer(a, [a]), [])
     assert "ALTA" in capturado["p"]
     assert "<ALERTA>" in capturado["p"]
+
+
+# --------------------------------------------------------------------------
+# CLI: persistencia das metricas
+# --------------------------------------------------------------------------
+def test_cli_grava_metricas_em_json(tmp_path):
+    import json
+
+    from soc_copilot.cli import main
+
+    saida = tmp_path / "ablacao.json"
+    assert main(["--saida", str(saida)]) == 0
+
+    dados = json.loads(saida.read_text(encoding="utf-8"))
+    assert dados["dataset"] == "golden_set.csv"
+    assert dados["modelo_llm"] is None
+    assert dados["catalogo_tecnicas"] == len(listar())
+    assert [e["configuracao"] for e in dados["experimentos"]] == [
+        "1. Baseline (regras)", "2. Regras + RAG"]
+    assert dados["experimentos"][0]["custo_erro"] == 0
+    assert len(dados["experimentos"][1]["matriz_confusao"]) == 4
+
+
+def test_cli_demo_mostra_um_alerta_por_classe(capsys):
+    from soc_copilot.cli import main
+
+    assert main(["--demo"]) == 0
+    saida = capsys.readouterr().out
+    for classe in ("FALSO_POSITIVO", "BAIXA", "MEDIA", "ALTA"):
+        assert f"rótulo real: {classe}" in saida
+    assert saida.count("4. veredito") == 4
+    assert "3. recuperação" in saida
