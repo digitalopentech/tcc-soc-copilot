@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 580" width="800" height="580" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <title>Arquitetura do copiloto de triagem em quatro estágios</title>
+  <defs>
+    <marker id="seta" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#57606a"/>
+    </marker>
+    <marker id="seta-llm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#c4561b"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="800" height="580" fill="#ffffff"/>
+
+  <!-- Entrada -->
+  <rect x="16" y="12" width="520" height="56" rx="8" fill="#f6f8fa" stroke="#8c959f" stroke-width="1.5"/>
+  <text x="276" y="36" font-size="15" font-weight="700" fill="#1f2328" text-anchor="middle">Alerta bruto</text>
+  <text x="276" y="56" font-size="13" fill="#424a53" text-anchor="middle">CSV ou JSON · IDS, WAF, EDR, e-mail, nuvem, identidade</text>
+
+  <!-- Estágios -->
+  <g stroke="#2f6fb0" stroke-width="1.5" fill="#eaf2fb">
+    <rect x="16" y="94" width="520" height="64" rx="8"/>
+    <rect x="16" y="184" width="520" height="64" rx="8"/>
+    <rect x="16" y="274" width="520" height="64" rx="8"/>
+    <rect x="16" y="364" width="520" height="64" rx="8"/>
+  </g>
+  <g stroke="#b6cce6" stroke-width="1">
+    <line x1="206" y1="104" x2="206" y2="148"/>
+    <line x1="206" y1="194" x2="206" y2="238"/>
+    <line x1="206" y1="284" x2="206" y2="328"/>
+    <line x1="206" y1="374" x2="206" y2="418"/>
+  </g>
+
+  <g font-size="15" font-weight="700" fill="#1f2328">
+    <text x="30" y="122">1. Normalização</text>
+    <text x="30" y="212">2. Enriquecimento</text>
+    <text x="30" y="302">3. Recuperação</text>
+    <text x="30" y="392">4. Decisão</text>
+  </g>
+  <g font-size="12.5" fill="#57606a" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace">
+    <text x="30" y="143">ingest.py</text>
+    <text x="30" y="233">enrich.py</text>
+    <text x="30" y="323">retriever.py</text>
+    <text x="30" y="413">classifier.py</text>
+  </g>
+  <g font-size="13" fill="#424a53">
+    <text x="222" y="121">aliases de coluna mapeados para o esquema</text>
+    <text x="222" y="141">canônico Alerta, validado com Pydantic</text>
+    <text x="222" y="211">classe do IP e 12 padrões de ataque (regex)</text>
+    <text x="222" y="231">correlação por IP em janelas de 5 e 60 min</text>
+    <text x="222" y="301">TF-IDF e cosseno sobre o catálogo ATT&amp;CK</text>
+    <text x="222" y="321">devolve as 3 técnicas mais próximas</text>
+    <text x="222" y="391">regras (baseline), LLM + RAG ou híbrido</text>
+    <text x="222" y="411">no híbrido, as regras decidem a prioridade</text>
+  </g>
+
+  <!-- Saída -->
+  <rect x="16" y="454" width="520" height="56" rx="8" fill="#f6f8fa" stroke="#8c959f" stroke-width="1.5"/>
+  <text x="276" y="478" font-size="15" font-weight="700" fill="#1f2328" text-anchor="middle">Veredito validado por esquema</text>
+  <text x="276" y="498" font-size="13" fill="#424a53" text-anchor="middle">prioridade · técnica ATT&amp;CK · justificativa · ação recomendada</text>
+
+  <!-- Fluxo principal -->
+  <g stroke="#57606a" stroke-width="1.6" marker-end="url(#seta)">
+    <line x1="276" y1="70" x2="276" y2="92"/>
+    <line x1="276" y1="160" x2="276" y2="182"/>
+    <line x1="276" y1="250" x2="276" y2="272"/>
+    <line x1="276" y1="340" x2="276" y2="362"/>
+    <line x1="276" y1="430" x2="276" y2="452"/>
+  </g>
+
+  <!-- Base de conhecimento -->
+  <g stroke="#3f7f4a" stroke-width="1.5" fill="#eef6ee">
+    <path d="M590,282 V328 A90,10 0 0 0 770,328 V282"/>
+    <ellipse cx="680" cy="282" rx="90" ry="10"/>
+  </g>
+  <text x="680" y="310" font-size="13.5" font-weight="700" fill="#1f2328" text-anchor="middle">Catálogo MITRE ATT&amp;CK</text>
+  <text x="680" y="328" font-size="12" fill="#424a53" text-anchor="middle">27 técnicas · JSON versionado</text>
+  <line x1="586" y1="306" x2="540" y2="306" stroke="#57606a" stroke-width="1.6" marker-end="url(#seta)"/>
+
+  <!-- Modelo de linguagem -->
+  <rect x="590" y="364" width="180" height="64" rx="8" fill="#fff4eb" stroke="#c4561b" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="680" y="388" font-size="13.5" font-weight="700" fill="#1f2328" text-anchor="middle">Modelo de linguagem</text>
+  <text x="680" y="405" font-size="12" fill="#424a53" text-anchor="middle">qwen3:4b · Ollama local</text>
+  <text x="680" y="420" font-size="12" fill="#424a53" text-anchor="middle">temperatura 0</text>
+  <line x1="586" y1="396" x2="540" y2="396" stroke="#c4561b" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#seta-llm)"/>
+  <text x="680" y="450" font-size="12" font-style="italic" fill="#a8461a" text-anchor="middle">no modo híbrido, só redige</text>
+  <text x="680" y="466" font-size="12" font-style="italic" fill="#a8461a" text-anchor="middle">a justificativa</text>
+
+  <!-- Legenda -->
+  <rect x="16" y="540" width="18" height="13" rx="3" fill="#eaf2fb" stroke="#2f6fb0" stroke-width="1.3"/>
+  <text x="42" y="551" font-size="12.5" fill="#424a53">estágio determinístico</text>
+  <rect x="236" y="540" width="18" height="13" rx="3" fill="#fff4eb" stroke="#c4561b" stroke-width="1.3" stroke-dasharray="3 2"/>
+  <text x="262" y="551" font-size="12.5" fill="#424a53">modelo de linguagem, uso opcional</text>
+  <rect x="520" y="540" width="18" height="13" rx="3" fill="#eef6ee" stroke="#3f7f4a" stroke-width="1.3"/>
+  <text x="546" y="551" font-size="12.5" fill="#424a53">base de conhecimento</text>
+</svg>
