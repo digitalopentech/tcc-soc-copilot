@@ -65,7 +65,7 @@ Detalhes e decisões de projeto em [`docs/ARQUITETURA.md`](./docs/ARQUITETURA.md
 
 ## Exemplo de uso
 
-`make demo` (ou `python -m soc_copilot.cli --demo`) triage um alerta de cada classe de
+`make demo` (ou `python -m soc_copilot.cli --demo`) faz a triagem de um alerta de cada classe de
 prioridade, mostrando o que entra e o que sai em cada estágio. Dois dos quatro casos:
 
 ```text

@@ -70,7 +70,7 @@ demonstra maturidade e antecipa a crítica da banca.
 
 ## 1.2 Trabalhos relacionados e estado da arte
 
-O conceito de *AI SOC Analyst* — um agente que triage, enriquece, investiga e entrega um
+O conceito de *AI SOC Analyst* — um agente que faz a triagem, enriquece, investiga e entrega um
 veredito ao humano — é hoje uma categoria consolidada de mercado (2026), não uma ideia
 inédita. É fundamental posicionar este trabalho **frente ao que já existe** e deixar claro
 qual lacuna ele preenche.
@@ -107,7 +107,7 @@ que consolida dois pontos adotados por este trabalho:
 1. **Arquitetura híbrida / uso seletivo do LLM:** não se envia todo log ao modelo; o
    pipeline tradicional (coleta, filtragem, agregação) continua fazendo o trabalho barato
    em volume, e o LLM é acionado **seletivamente** para os eventos que exigem raciocínio
-   contextual. É exatamente o desenho deste copiloto (o LLM triage *alertas*, não o fluxo
+   contextual. É exatamente o desenho deste copiloto (o LLM faz a triagem de *alertas*, não do fluxo
    bruto) — e é o que torna a comparação de custos local × nuvem realista.
 2. **Limitações documentadas pela indústria**, que este TCC trata explicitamente como
    requisitos de avaliação: janela de contexto (exige *chunking* de logs longos), fraca
@@ -139,11 +139,11 @@ concentrando a energia do TCC na avaliação rigorosa — que é onde está o m�
 ## 1.3 Escopo e delimitação
 
 O copiloto atua **depois da detecção**: ele não gera alertas nem monitora infraestrutura,
-ele **analisa e triage eventos de segurança que outras ferramentas já produziram**.
+ele **analisa e faz a triagem de eventos de segurança que outras ferramentas já produziram**.
 
 ```
 Rede / servidor / app  →  ferramenta de detecção  →  ALERTA/LOG  →  [COPILOTO]  →  veredito
- (o que acontece)         (IDS, firewall, WAF,        (o INPUT       (triage,
+ (o que acontece)         (IDS, firewall, WAF,        (o INPUT       (triagem,
                            EDR, SIEM, log web)         do trabalho)   prioriza, explica)
 ```
 

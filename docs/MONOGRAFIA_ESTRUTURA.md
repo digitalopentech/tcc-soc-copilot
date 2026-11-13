@@ -6,7 +6,7 @@
 ## 1. Introdução (3-4 pág.)
 - **Contexto**: volume de alertas em SOC, alert fatigue, custo do analista
 - **Problema**: triagem manual não escala; falso positivo domina o volume
-- **Pergunta de pesquisa**: um copiloto com RAG sobre ATT&CK triage alertas com
+- **Pergunta de pesquisa**: um copiloto com RAG sobre ATT&CK faz a triagem de alertas com
   qualidade utilizável — e quanto cada componente (enriquecimento, RAG, LLM) contribui?
 - **Objetivos**: geral e específicos → `PROPOSTA_TCC.md` §3, **revisados**: o braço em
   nuvem (AWS), o *fine-tuning* e a arquitetura multiagente da proposta ficaram como
